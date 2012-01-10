@@ -36,10 +36,26 @@
 
 #include <zlib.h>
 
+/* NOTE: libzip's internal c files should always
+	include #include zipint.h, not zip.h.
+	zipint.h will include zip.h automatically,
+	and this way ZIP_EXTERN will be correctly set.
+	
+	All linking programs should #include zip.h first,
+   before zipint.h (if it is required at all).
+ */
+
 #ifdef _WIN32
-#define ZIP_EXTERN __declspec(dllexport)
-/* for dup(), close(), etc. */
-#include <io.h>
+	/* for dup(), close(), etc. */
+#	include <io.h>
+#endif
+
+#if !defined(ZIP_EXTERN) && defined(ZIP_DLL) && defined(_WIN32)
+#	define ZIP_EXTERN __declspec(dllexport)
+#endif
+
+#ifndef ZIP_EXTERN
+#	define ZIP_EXTERN extern
 #endif
 
 #include "zip.h"

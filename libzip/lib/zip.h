@@ -36,12 +36,12 @@
 
 
 
-#ifndef ZIP_EXTERN
-#ifdef _WIN32
-#define ZIP_EXTERN __declspec(dllimport)
-#else
-#define ZIP_EXTERN
+#if !defined(ZIP_EXTERN) && defined(ZIP_DLL) && defined(_WIN32)
+#	define ZIP_EXTERN __declspec(dllimport)
 #endif
+
+#ifndef ZIP_EXTERN
+#	define ZIP_EXTERN extern
 #endif
 
 #ifdef __cplusplus
