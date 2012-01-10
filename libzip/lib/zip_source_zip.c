@@ -121,7 +121,7 @@ read_zip(void *state, void *data, zip_uint64_t len, enum zip_source_cmd cmd)
 {
     struct read_zip *z;
     char b[8192], *buf;
-    int i;
+    zip_int64_t i;
     zip_uint64_t n;
 
     z = (struct read_zip *)state;

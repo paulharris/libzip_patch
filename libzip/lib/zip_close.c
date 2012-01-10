@@ -580,7 +580,8 @@ _zip_cdir_set_comment(struct zip_cdir *dest, struct zip *src)
 int
 _zip_changed(struct zip *za, int *survivorsp)
 {
-    int changed, i, survivors;
+    int changed, survivors;
+    zip_uint64_t i;
 
     changed = survivors = 0;
 

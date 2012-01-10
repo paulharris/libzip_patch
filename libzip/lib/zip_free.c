@@ -46,7 +46,8 @@
 void
 _zip_free(struct zip *za)
 {
-    int i;
+    zip_uint64_t i;
+    int j;
 
     if (za == NULL)
 	return;
@@ -68,10 +69,10 @@ _zip_free(struct zip *za)
 	free(za->entry);
     }
 
-    for (i=0; i<za->nfile; i++) {
-	if (za->file[i]->error.zip_err == ZIP_ER_OK) {
-	    _zip_error_set(&za->file[i]->error, ZIP_ER_ZIPCLOSED, 0);
-	    za->file[i]->za = NULL;
+    for (j=0; j<za->nfile; j++) {
+	if (za->file[j]->error.zip_err == ZIP_ER_OK) {
+	    _zip_error_set(&za->file[j]->error, ZIP_ER_ZIPCLOSED, 0);
+	    za->file[j]->za = NULL;
 	}
     }
 
