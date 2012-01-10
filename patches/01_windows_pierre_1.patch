@@ -1,0 +1,38 @@
+=== modified file 'libzip/lib/zip_replace.c'
+--- libzip/lib/zip_replace.c	2012-01-09 03:18:36 +0000
++++ libzip/lib/zip_replace.c	2012-01-10 04:06:50 +0000
+@@ -60,12 +60,13 @@
+ _zip_replace(struct zip *za, zip_uint64_t idx, const char *name,
+ 	     struct zip_source *source)
+ {
++    zip_uint64_t za_nentry_prev;
+     if (ZIP_IS_RDONLY(za)) {
+ 	_zip_error_set(&za->error, ZIP_ER_RDONLY, 0);
+ 	return -1;
+     }
+ 
+-    zip_uint64_t za_nentry_prev = za->nentry;
++    za_nentry_prev = za->nentry;
+     if (idx == ZIP_UINT64_MAX) {
+ 	if (_zip_entry_new(za) == NULL)
+ 	    return -1;
+
+=== modified file 'libzip/src/zipcmp.c'
+--- libzip/src/zipcmp.c	2012-01-09 03:18:36 +0000
++++ libzip/src/zipcmp.c	2012-01-10 04:05:48 +0000
+@@ -50,6 +50,14 @@
+ 
+ #include "zip.h"
+ 
++#if !defined(HAVE_STRCASECMP)
++#if defined(HAVE__STRCMPI)
++#define strcasecmp     _strcmpi
++#elif defined(HAVE__STRICMP)
++#define strcasecmp     _stricmp
++#endif
++#endif
++
+ struct entry {
+     char *name;
+     unsigned int size;
+

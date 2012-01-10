@@ -1,0 +1,36 @@
+=== modified file 'libzip/lib/zip_utf-8.c'
+--- libzip/lib/zip_utf-8.c	2012-01-09 03:18:36 +0000
++++ libzip/lib/zip_utf-8.c	2012-01-10 06:13:49 +0000
+@@ -33,7 +33,6 @@
+ 
+ 
+ 
+-#include "zip.h"
+ #include "zipint.h"
+ 
+ #include <stdlib.h>
+
+=== modified file 'libzip/lib/zipint.h'
+--- libzip/lib/zipint.h	2012-01-09 03:18:36 +0000
++++ libzip/lib/zipint.h	2012-01-10 06:14:04 +0000
+@@ -36,8 +36,19 @@
+ 
+ #include <zlib.h>
+ 
++/* NOTE: libzip's internal c files should always
++	include #include zipint.h, not zip.h.
++	zipint.h will include zip.h automatically,
++	and this way ZIP_EXTERN will be correctly set.
++	
++	All linking programs should #include zip.h first,
++   before zipint.h (if it is required at all).
++ */
++
+ #ifdef _WIN32
++#ifndef ZIP_EXTERN
+ #define ZIP_EXTERN __declspec(dllexport)
++#endif
+ /* for dup(), close(), etc. */
+ #include <io.h>
+ #endif
+
