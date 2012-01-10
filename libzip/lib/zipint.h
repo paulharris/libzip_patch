@@ -333,9 +333,12 @@ unsigned int _zip_file_get_offset(struct zip *, int);
 
 int _zip_filerange_crc(FILE *, off_t, off_t, uLong *, struct zip_error *);
 
-enum zip_encoding_type _zip_guess_encoding(const zip_uint8_t * const,
+/* These two functions are used in the regression tests, so they need to
+   be exposed in order to compile the test. */
+   
+ZIP_EXTERN enum zip_encoding_type _zip_guess_encoding(const zip_uint8_t * const,
 					   zip_uint32_t);
-zip_uint8_t *_zip_cp437_to_utf8(const zip_uint8_t * const, zip_uint32_t,
+ZIP_EXTERN zip_uint8_t *_zip_cp437_to_utf8(const zip_uint8_t * const, zip_uint32_t,
 				struct zip_error *error);
 
 struct zip *_zip_open(const char *, FILE *, int, int, int *);
