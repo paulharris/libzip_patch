@@ -50,6 +50,14 @@
 
 #include "zip.h"
 
+#if !defined(HAVE_STRCASECMP)
+#if defined(HAVE__STRCMPI)
+#define strcasecmp     _strcmpi
+#elif defined(HAVE__STRICMP)
+#define strcasecmp     _stricmp
+#endif
+#endif
+
 struct entry {
     char *name;
     unsigned int size;
