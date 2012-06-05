@@ -154,4 +154,8 @@ CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/cmake-config.h.in
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/cmake-zipconf.h.in
   ${CMAKE_CURRENT_BINARY_DIR}/zipconf.h)
 
+# Why install it here?
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/zipconf.h DESTINATION lib/libzip/include)
+
+# install the zipconf.h into the include path, as the users of this library require this file!
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/zipconf.h DESTINATION include)
